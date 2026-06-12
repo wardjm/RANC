@@ -44,13 +44,19 @@ module PathDecoder3Way#(
     wire [DX_MSB:DX_LSB] dx_plus_add;
     assign dx_plus_add = dx + ADD;
     
-    assign dout_a = DATA_WIDTH-1 == DX_MSB ? {dx_plus_add, din[DX_LSB-1:0]} : {din[DATA_WIDTH-1:DX_MSB+1], dx_plus_add, din[DX_LSB-1:0]};
+    generate
+        if (DATA_WIDTH-1 == DX_MSB) begin
+            assign dout_a = {dx_plus_add, din[DX_LSB-1:0]};
+            assign dout_b = din[DX_LSB-1:0];
+            assign dout_c = din[DX_LSB-1:0];
+        end else begin
+            assign dout_a = {din[DATA_WIDTH-1:DX_MSB+1], dx_plus_add, din[DX_LSB-1:0]};
+            assign dout_b = {din[DATA_WIDTH-1:DX_MSB+1], din[DX_LSB-1:0]};
+            assign dout_c = {din[DATA_WIDTH-1:DX_MSB+1], din[DX_LSB-1:0]};
+        end
+    endgenerate
     assign wen_a = dx == 0 ? 0 : wen;
-    
-    assign dout_b = DATA_WIDTH-1 == DX_MSB ? din[DX_LSB-1:0] : {din[DATA_WIDTH-1:DX_MSB+1], din[DX_LSB-1:0]};
     assign wen_b = dy >= 0 ? (dx == 0 ? wen : 0) : 0;
-    
-    assign dout_c = DATA_WIDTH-1 == DX_MSB ? din[DX_LSB-1:0] : {din[DATA_WIDTH-1:DX_MSB+1], din[DX_LSB-1:0]};
     assign wen_c = dy < 0 ? (dx == 0 ? wen : 0) : 0;
 
 endmodule
