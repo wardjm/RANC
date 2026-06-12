@@ -23,7 +23,7 @@ class TestRANCNetwork(unittest.TestCase):
                 output_core_x_coordinate, output_core_y_coordinate,
                 num_outputs, num_neurons, num_axons, num_ticks, num_weights,
                 num_reset_modes, potential_width, weight_width, leak_width,
-                threshold_width, dx_msb, dx_lsb, dy_msb, dy_lsb,
+                threshold_width, max_dimension_x, max_dimension_y,
                 input_buffer_depth, router_buffer_depth, memory_filepath,
                 maximum_number_of_packets, c_s00_axis_tdata_width,
                 correct_filepath, delay_ns=10, tick_latency=1):
@@ -55,8 +55,8 @@ class TestRANCNetwork(unittest.TestCase):
                         output_core_x_coordinate, output_core_y_coordinate,
                         num_outputs, num_neurons, num_axons, num_ticks,
                         num_weights, num_reset_modes, potential_width,
-                        weight_width, leak_width, threshold_width, dx_msb,
-                        dx_lsb, dy_msb, dy_lsb, input_buffer_depth,
+                        weight_width, leak_width, threshold_width,
+                        max_dimension_x, max_dimension_y, input_buffer_depth,
                         router_buffer_depth, memory_filepath,
                         maximum_number_of_packets, c_s00_axis_tdata_width)
 
@@ -136,10 +136,8 @@ class TestRANCNetwork(unittest.TestCase):
         weight_width = 9
         leak_width = 9
         threshold_width = 9
-        dx_msb = 29
-        dx_lsb = 21
-        dy_msb = 20
-        dy_lsb = 12
+        max_dimension_x = 512
+        max_dimension_y = 512
         input_buffer_depth = 512
         router_buffer_depth = 4
         memory_filepath = "../testbench/vmm/"
@@ -214,8 +212,8 @@ class TestRANCNetwork(unittest.TestCase):
                      output_core_x_coordinate, output_core_y_coordinate,
                      num_outputs, num_neurons, num_axons, num_ticks,
                      num_weights, num_reset_modes, potential_width,
-                     weight_width, leak_width, threshold_width, dx_msb,
-                     dx_lsb, dy_msb, dy_lsb, input_buffer_depth,
+                     weight_width, leak_width, threshold_width,
+                     max_dimension_x, max_dimension_y, input_buffer_depth,
                      router_buffer_depth, memory_filepath,
                      maximum_number_of_packets, c_s00_axis_tdata_width,
                      correct_filepath, tick_latency=1)

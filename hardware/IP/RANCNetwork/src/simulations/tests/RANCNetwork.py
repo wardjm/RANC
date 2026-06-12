@@ -9,7 +9,7 @@ cmd = ('iverilog -o RANCNetwork.o -I ../../sources -Dgrid_dimension_x=%s '
        '-Doutput_core_y_coordinate=%s -Dnum_outputs=%s -Dnum_neurons=%s '
        '-Dnum_axons=%s -Dnum_ticks=%s -Dnum_weights=%s -Dnum_reset_modes=%s '
        '-Dpotential_width=%s -Dweight_width=%s -Dleak_width=%s '
-       '-Dthreshold_width=%s -Ddx_msb=%s -Ddx_lsb=%s -Ddy_msb=%s -Ddy_lsb=%s '
+       '-Dthreshold_width=%s -Dmax_dimension_x=%s -Dmax_dimension_y=%s '
        '-Dinput_buffer_depth=%s -Drouter_buffer_depth=%s '
        '-Dmemory_filepath=\\"%s\\" -Dmaximum_number_of_packets=%s '
        '-Dc_s00_axis_tdata_width=%s -s test_RANCNetwork '
@@ -31,8 +31,8 @@ Params = namedtuple('params', 'grid_dimension_x, grid_dimension_y,'
                     'output_core_y_coordinate, num_outputs,'
                     'num_neurons, num_axons, num_ticks, num_weights,'
                     'num_reset_modes, potential_width, weight_width,'
-                    'leak_width, threshold_width, dx_msb, dx_lsb, dy_msb,'
-                    'dy_lsb, input_buffer_depth,'
+                    'leak_width, threshold_width, max_dimension_x,'
+                    'max_dimension_y, input_buffer_depth,'
                     'router_buffer_depth, memory_filepath,'
                     'maximum_number_of_packets,'
                     'c_s00_axis_tdata_width')
@@ -53,10 +53,8 @@ def RANCNetwork(input_ports, output_ports, params):
                      params.weight_width,
                      params.leak_width,
                      params.threshold_width,
-                     params.dx_msb,
-                     params.dx_lsb,
-                     params.dy_msb,
-                     params.dy_lsb,
+                     params.max_dimension_x,
+                     params.max_dimension_y,
                      params.input_buffer_depth,
                      params.router_buffer_depth,
                      params.memory_filepath,
