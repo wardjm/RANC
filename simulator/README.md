@@ -4,7 +4,7 @@ A C++ software simulation of the RANC neuromorphic architecture, developed by Dr
 
 ## Prerequisites
 
-- CMake ≥ 2.8.9
+- CMake ≥ 3.10
 - C++11-capable compiler (gcc, clang, MSVC)
 
 All other dependencies (RapidJSON, plog, cxxopts) are bundled in `extern/`.
@@ -62,6 +62,8 @@ A 2-D array where `packets[i]` contains the packets delivered at tick `i`.
 }
 ```
 
+> **Note:** Packet routing uses absolute `destination_core` coordinates. Neuron output routing uses `destination_core_offset` (relative to the neuron's own core) — see the neuron table below.
+
 ### `output_bus`
 Specifies which core acts as the output sink and how many output channels it exposes.
 
@@ -111,11 +113,14 @@ See `data/example/input.json` for a complete annotated example.
     "num_cores_y": 3,
     "num_weights": 4,
     "max_tick_offset": 16,
+    "neuron_reset_type": 1,
     "neuron_block_trace_verbosity": 0,
     "core_controller_trace_verbosity": 0,
     "scheduler_trace_verbosity": 0
 }
 ```
+
+`neuron_reset_type` controls how the membrane potential is reset after a spike: `0` = absolute reset (potential set to `reset_potential`), `1` = linear reset (potential decremented by threshold).
 
 `num_cores_x * num_cores_y` cores are instantiated. Any core not specified in the input file is initialized with silent neurons (threshold = 1, no connections).
 

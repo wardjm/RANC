@@ -1,0 +1,43 @@
+name: Simulator Build & Test
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'simulator/**'
+      - '.github/workflows/simulator.yml'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'simulator/**'
+      - '.github/workflows/simulator.yml'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake g++
+
+      - name: Configure
+        working-directory: simulator
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        working-directory: simulator
+        run: cmake --build build --parallel
+
+      - name: Smoke test
+        working-directory: simulator
+        run: |
+          ./build/ranc_sim \
+            --input data/test.json \
+            --output /tmp/sim_output.txt \
+            --config config.json \
+            --ticks 1
+          test -f /tmp/sim_output.txt

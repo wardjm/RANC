@@ -1,0 +1,39 @@
+name: rancutils Tests
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'software/rancutils/**'
+      - '.github/workflows/rancutils_tests.yml'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'software/rancutils/**'
+      - '.github/workflows/rancutils_tests.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install rancutils and test dependencies
+        working-directory: software/rancutils
+        run: |
+          pip install --upgrade pip
+          pip install -e .
+          pip install pytest
+
+      - name: Run tests
+        working-directory: software/rancutils
+        run: pytest tests/ -v

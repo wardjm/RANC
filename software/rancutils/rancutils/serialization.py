@@ -89,12 +89,14 @@ def parse_neuron(neuron_json):
     Returns:
         The neuron object.
     """
+    dest_core = neuron_json.get('destination_core_offset',
+                                neuron_json.get('destination_core'))
     return Neuron(neuron_json['reset_potential'],
                   neuron_json['weights'],
                   neuron_json['leak'],
                   neuron_json['positive_threshold'],
                   neuron_json['negative_threshold'],
-                  neuron_json['destination_core'],
+                  dest_core,
                   neuron_json['destination_axon'],
                   neuron_json['destination_tick'],
                   neuron_json['current_potential'],

@@ -1,5 +1,9 @@
 # RANC
 
+[![Simulator](https://github.com/UA-RCL/RANC/actions/workflows/simulator.yml/badge.svg)](https://github.com/UA-RCL/RANC/actions/workflows/simulator.yml)
+[![rancutils Tests](https://github.com/UA-RCL/RANC/actions/workflows/rancutils_tests.yml/badge.svg)](https://github.com/UA-RCL/RANC/actions/workflows/rancutils_tests.yml)
+[![Hardware Unit Tests](https://github.com/UA-RCL/RANC/actions/workflows/hardware_unit_tests.yml/badge.svg)](https://github.com/UA-RCL/RANC/actions/workflows/hardware_unit_tests.yml)
+
 RANC (Reconfigurable Architecture for Neuromorphic Computing) is a full-featured environment for experimentation with neuromorphic architectures developed by Dr. Akoglu's Reconfigurable Computing Lab at the University of Arizona. See https://ua-rcl.github.io/projects/ranc for more details.
 
 ## Architecture Overview
@@ -41,7 +45,7 @@ RANC models a grid of spiking neuron cores. Each core contains a synaptic crossb
 
 | Component | Requirements |
 |-----------|-------------|
-| Simulator | CMake ≥ 2.8.9, C++11 compiler (gcc/clang) |
+| Simulator | CMake ≥ 3.10, C++11 compiler (gcc/clang) |
 | Software (rancutils, tealayers, vmmmap) | Python 3, TensorFlow (for tealayers), numpy, bitstring, pandas |
 | Hardware | Xilinx Vivado 2018.2+, Zynq UltraScale+ board |
 

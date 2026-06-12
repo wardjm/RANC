@@ -52,8 +52,8 @@ core = Core(
     coordinates=[0, 0],
 )
 
-packets = [[Packet([0, 0], axon=0, tick=0)]]
-output_bus = OutputBus(coordinates=(1, 0), num_outputs=4)
+packets = [[Packet([0, 0], 0, 0)]]
+output_bus = OutputBus(coordinates=[1, 0], num_outputs=4)
 
 save("input.json", [core], packets, output_bus, indent=2)
 ```
@@ -67,7 +67,7 @@ from rancutils import OutputBus, save
 # `model` is a compiled Keras model with Tea layers.
 cores = create_cores(model, num_tea_layers=2, neuron_reset_type=0)
 packets = create_packets(partitioned_input_data)
-output_bus = OutputBus((0, 2), num_outputs=250)
+output_bus = OutputBus([0, 2], num_outputs=250)
 
 save("mnist_config.json", cores, packets, output_bus, indent=2)
 ```
@@ -95,6 +95,15 @@ This writes one `csram_NNN.mem` and one `tc_NNN.mem` per core plus `data.bin` (p
 from rancutils.simulator import collect_classifications_from_simulator
 
 results = collect_classifications_from_simulator("output.txt", num_classes=10)
+```
+
+## Testing
+
+Unit tests live in `tests/`. They cover `Packet`, `Neuron`, `Core`, and the serialization roundtrip (encode → decode → re-encode).
+
+```bash
+pip install pytest
+pytest tests/ -v
 ```
 
 ## CSV → JSON Converter
