@@ -35,9 +35,9 @@ jobs:
         pip install myhdl pytest pytest-xdist
     - name: Build iverilog object files
       run: |
-        cd src/simulations/iverilog
+        cd IP/RANCNetwork/src/simulations/iverilog
         make
     - name: Run Unit Tests with pytest
       run: |
-        cd src/simulations/tests
+        cd IP/RANCNetwork/src/simulations/tests
         pytest -n auto --dist=loadfile
