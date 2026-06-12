@@ -8,7 +8,8 @@
 
 #include <cxxopts.hpp>
 #include <plog/Log.h>
-#include <plog/Appenders/ConsoleAppender.h>
+#include <plog/Init.h>
+#include <plog/Appenders/RollingFileAppender.h>
 #include <plog/Formatters/MessageOnlyFormatter.h>
 #include <rapidjson/document.h>
 
