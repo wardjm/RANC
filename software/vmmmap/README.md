@@ -1,5 +1,45 @@
 # VMM Map
 
+Python package for mapping vector-matrix multiplication (VMM) operations onto RANC cores.
+
+## Installation
+
+```bash
+pip install ./software/vmmmap/
+# or from within the vmmmap directory:
+pip install .
+```
+
+Dependencies: `rancutils`, `numpy`, `bitstring`.
+
+## Quick Usage
+
+```python
+import numpy as np
+from vmmmap import vmm_fair_create_cores_and_packets, read_vmm_output
+from rancutils import save
+
+# Define a signed integer matrix (max 32 rows)
+A = np.array([[-3, 2], [-7, 5], [3, -1]])
+x = np.array([1, 0, 1])  # input vector (rate-coded over multiple ticks)
+
+cores, packets, output_bus_config, sim_config = vmm_fair_create_cores_and_packets(A, x)
+
+# Save as simulator input
+from rancutils import OutputBus
+output_bus = OutputBus(**output_bus_config)
+save("vmm_input.json", cores, packets, output_bus, indent=2)
+```
+
+Run the simulator, then read back the result:
+
+```python
+result = read_vmm_output("output.txt", A.shape)
+print("VMM result:", result)
+```
+
+## Mapping Methods
+
 This package contains functions for mapping vector-matrix multiplication (VMM) corelets to RANC cores.  There are two supported mapping methodologies which can be found in [Daniel Mendat's dissertation](https://jscholarship.library.jhu.edu/handle/1774.2/58684) and [Kaitlin Fair's dissertation](https://smartech.gatech.edu/handle/1853/59782). These two mapping methods 
 can be found in this package as `fair_vmm_conversion.py` and `mendat_vmm_conversion.py`. The main focus of developing this has been put into Kaitlin Fair's method as
 it provides more precision and allows for negative outputs. Therefore, the implementation of Daniel Mendat's mapping procedure is a little out of date but I am hoping to make a 
