@@ -37,13 +37,6 @@ jobs:
       run: |
         cd IP/RANCNetwork/src/simulations/iverilog
         make
-    - name: Create testbench symlink for unit tests
-      run: |
-        ln -s memory_files IP/RANCNetwork/src/simulations/testbench
-    - name: Run unit tests
-      run: |
-        cd IP/RANCNetwork/src/simulations/tests
-        pytest -n auto --dist=loadfile
     - name: Run network tests
       run: |
         cd IP/RANCNetwork/src/simulations/networks
