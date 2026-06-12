@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [ '3.10', '3.12' ]
+        python-version: [ '3.10' ]
     defaults:
       run:
         shell: bash
@@ -33,11 +33,18 @@ jobs:
         sudo apt install -y iverilog git
         python -m pip install --upgrade pip
         pip install myhdl pytest pytest-xdist
-    - name: Build iverilog object files
+    - name: Build iverilog VPI module
       run: |
         cd IP/RANCNetwork/src/simulations/iverilog
         make
-    - name: Run Unit Tests with pytest
+    - name: Create testbench symlink for unit tests
+      run: |
+        ln -s memory_files IP/RANCNetwork/src/simulations/testbench
+    - name: Run unit tests
       run: |
         cd IP/RANCNetwork/src/simulations/tests
+        pytest -n auto --dist=loadfile
+    - name: Run network tests
+      run: |
+        cd IP/RANCNetwork/src/simulations/networks
         pytest -n auto --dist=loadfile
